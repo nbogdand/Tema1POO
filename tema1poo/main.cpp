@@ -35,6 +35,14 @@ public:
         return nr;
     }
 
+    Numar_rational operator - (Numar_rational& r){
+        Numar_rational nr;
+        nr.numarator=this->numarator*r.numitor + r.numarator*this->numitor;
+        nr.numitor=this->numitor*r.numitor;
+        simplifica(nr);
+        return nr;
+    }
+
 private:
     int cmmdc(int a,int b){
         while(a!=b){
