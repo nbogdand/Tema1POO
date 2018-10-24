@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1540403072 source:e:\cc++ workspace\tema1poo\tema1poo\numar_rational.cpp
+	"headerNumarRational.hpp"
+	<iostream>
+	<cmath>
+
+1540402561 e:\cc++ workspace\tema1poo\tema1poo\headernumarrational.hpp
+	<iostream>
+
+1540403136 source:e:\cc++ workspace\tema1poo\tema1poo\main.cpp
+	<iostream>
+	"headerNumarRational.hpp"
+
+1540327933 e:\cc++ workspace\tema1poo\tema1poo\numar_rational.cpp
+	"headerNumarRational.hpp"
+
