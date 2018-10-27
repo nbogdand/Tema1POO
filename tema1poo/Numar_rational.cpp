@@ -19,7 +19,7 @@ void Numar_rational::reducere(){
     // Simplify the fraction by a or b (lowest common divisor)
 
     m_numarator=m_numarator/a;
-    m_numitor=m_numitor/b;
+    m_numitor=m_numitor/a;
 
     //if both numerator and denominator are negative
     //then the whole number is positive
@@ -28,8 +28,8 @@ void Numar_rational::reducere(){
         m_numitor=std::abs(m_numitor);
     }
 }
-/*
-Numar_rational::Numar_rational(int numarator,int numitor)
+
+Numar_rational::Numar_rational(int numarator=0,int numitor=1)
             :m_numarator(numarator)
             ,m_numitor(numitor)
 {
@@ -39,10 +39,10 @@ Numar_rational::Numar_rational(int numarator,int numitor)
 }
 
 Numar_rational::Numar_rational(Numar_rational& r){
-    this->m_numarator=r.m_numarator;
-    this->m_numitor=r.m_numitor;
+    this->m_numarator=r.getNumarator();
+    this->m_numitor=r.getNumitor();
 }
-*/
+
 int Numar_rational::getNumarator(){
     return this->m_numarator;
 }
@@ -61,8 +61,11 @@ void Numar_rational::setNumitor(int numitor){
 }
 
 Numar_rational Numar_rational::operator+=(const Numar_rational r){
+    std::cout<<"m_numa:"<<m_numarator<<" m_numi:"<<m_numitor<<std::endl;
+    std::cout<<"r.m_numa:"<<r.m_numarator<<" r.m_numi:"<<r.m_numitor<<std::endl;
     m_numarator=m_numarator*r.m_numitor + r.m_numarator*m_numitor;
     m_numitor=m_numitor*r.m_numitor;
+    std::cout<<"numa:"<<m_numarator<<" numi:"<<m_numitor<<std::endl;
     (*this).reducere();
     return *this;
 }
@@ -125,7 +128,7 @@ Numar_rational Numar_rational::operator - (){
 }
 
 Numar_rational operator + (Numar_rational a,Numar_rational b){
-    Numar_rational aux;
+    Numar_rational aux(0,1);
     aux.m_numarator=a.m_numarator*b.m_numitor + b.m_numarator*a.m_numitor;
     aux.m_numitor=a.m_numitor*b.m_numitor;
     aux.reducere();
@@ -133,7 +136,7 @@ Numar_rational operator + (Numar_rational a,Numar_rational b){
 }
 
 Numar_rational operator + (double d,Numar_rational r){
-    Numar_rational aux;
+    Numar_rational aux(0,1);
     aux.m_numarator=r.m_numarator + d*r.m_numitor;
     aux.m_numitor=r.m_numitor;
     aux.reducere();
@@ -142,7 +145,7 @@ Numar_rational operator + (double d,Numar_rational r){
 }
 
 Numar_rational operator + (Numar_rational r,int a){
-    Numar_rational aux;
+    Numar_rational aux(0,1);
     aux.m_numarator=r.m_numarator + r.m_numitor*a;
     aux.m_numitor=r.m_numitor;
     aux.reducere();
@@ -150,7 +153,7 @@ Numar_rational operator + (Numar_rational r,int a){
 }
 
 Numar_rational operator - (Numar_rational a,Numar_rational b){
-    Numar_rational aux;
+    Numar_rational aux(0,1);
     aux.m_numarator=a.m_numarator*b.m_numitor - b.m_numarator*a.m_numitor;
     aux.m_numitor=a.m_numitor*b.m_numitor;
     aux.reducere();
@@ -158,7 +161,7 @@ Numar_rational operator - (Numar_rational a,Numar_rational b){
 }
 
 Numar_rational operator - (double d,Numar_rational r){
-    Numar_rational aux;
+    Numar_rational aux(0,1);
     aux.m_numarator=d*r.m_numitor-r.m_numarator;
     aux.m_numitor=r.m_numitor;
     aux.reducere();
@@ -166,7 +169,7 @@ Numar_rational operator - (double d,Numar_rational r){
 }
 
 Numar_rational operator - (Numar_rational r,int d){
-    Numar_rational aux;
+    Numar_rational aux(0,1);
     aux.m_numarator=r.m_numarator - r.m_numitor*d;
     aux.m_numitor=r.m_numitor;
     aux.reducere();
@@ -174,7 +177,7 @@ Numar_rational operator - (Numar_rational r,int d){
 }
 
 Numar_rational operator * (Numar_rational a,Numar_rational b){
-    Numar_rational aux;
+    Numar_rational aux(1,1);
     aux.m_numarator=a.m_numarator*b.m_numarator;
     aux.m_numitor=a.m_numitor*b.m_numitor;
     aux.reducere();
@@ -182,21 +185,21 @@ Numar_rational operator * (Numar_rational a,Numar_rational b){
 }
 
 Numar_rational operator * (double d, Numar_rational r){
-    Numar_rational aux;
+    Numar_rational aux(1,1);
     aux.m_numarator=r.m_numarator*d;
     aux.m_numitor=r.m_numitor;
     return aux;
 }
 
 Numar_rational operator * (Numar_rational r,int a){
-    Numar_rational aux;
+    Numar_rational aux(1,1);
     aux.m_numarator=r.m_numarator*a;
     aux.m_numitor=r.m_numitor;
     return aux;
 }
 
 Numar_rational operator / (Numar_rational a,Numar_rational b){
-    Numar_rational aux;
+    Numar_rational aux(1,1);
     aux.m_numarator=a.m_numarator*b.m_numitor;
     aux.m_numitor=a.m_numitor*b.m_numarator;
     aux.reducere();
@@ -204,21 +207,21 @@ Numar_rational operator / (Numar_rational a,Numar_rational b){
 }
 
 Numar_rational operator / (double d,Numar_rational r){
-    Numar_rational aux;
+    Numar_rational aux(1,1);
     aux.m_numarator=d*r.m_numitor;
     aux.m_numitor=r.m_numarator;
     return aux;
 }
 
 Numar_rational operator / (Numar_rational r,int d){
-    Numar_rational aux;
+    Numar_rational aux(1,1);
     aux.m_numarator=r.m_numarator;
     aux.m_numitor=r.m_numitor*d;
     return aux;
 }
 
 Numar_rational operator ^ (Numar_rational r,int a){
-    Numar_rational aux;
+    Numar_rational aux(1,1);
 
     if(a>0){
         aux.m_numarator=r.m_numarator;
@@ -313,7 +316,7 @@ bool operator != (Numar_rational a,int d){
 bool operator < (Numar_rational a,Numar_rational b){
     a.reducere();
     b.reducere();
-    Numar_rational a1,b1;
+    Numar_rational a1(0,1),b1(0,1);
 
     //if both have the same numerator
     if(a.getNumarator()==b.getNumarator())

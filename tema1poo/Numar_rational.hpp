@@ -3,8 +3,8 @@
 class Numar_rational{
 public:
 
-//    Numar_rational(int,int);
-//    Numar_rational(Numar_rational& r);
+    Numar_rational(int,int);
+    Numar_rational(Numar_rational& r);
     void setNumaratorNumitor(int,int);
     void setNumarator(int);
     int getNumarator();

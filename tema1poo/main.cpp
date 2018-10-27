@@ -7,11 +7,12 @@ ofstream fout("file2.txt");
 
 int main()
 {
-    Numar_rational r1,r2,aux;
+    Numar_rational r1(2,3),r2(14,3);
     double d;
-    int a;
-    fin>>r1>>a;
-    r1*=a;
+    int a=2;
+
+   // r1*=a;
+    r1+=r2;
 /*
   //  cout<<r2;
 
@@ -31,8 +32,9 @@ int main()
     double b= (double)r1;
     cout<<"b=="<<b<<endl;
 */
-    std::string s = (std::string) r1;
-    fout<<s;
+ //   std::string s = (std::string) r1;
+    std::string s1 = (std::string) r1;
+    fout<<s1;
 
     return 0;
 }

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1540639686 source:e:\cc++ workspace\tema1poo\tema1poo\numar_rational.cpp
+1540642928 source:e:\cc++ workspace\tema1poo\tema1poo\numar_rational.cpp
 	"Numar_Rational.hpp"
 	<iostream>
 	<cmath>
@@ -8,14 +8,14 @@
 1540483087 e:\cc++ workspace\tema1poo\tema1poo\headernumarrational.hpp
 	<iostream>
 
-1540639696 source:e:\cc++ workspace\tema1poo\tema1poo\main.cpp
+1540642809 source:e:\cc++ workspace\tema1poo\tema1poo\main.cpp
 	<fstream>
 	"Numar_rational.hpp"
 
 1540327933 e:\cc++ workspace\tema1poo\tema1poo\numar_rational.cpp
 	"headerNumarRational.hpp"
 
-1540639686 e:\cc++ workspace\tema1poo\tema1poo\numar_rational.hpp
+1540640077 e:\cc++ workspace\tema1poo\tema1poo\numar_rational.hpp
 	<iostream>
 	<string>
 
