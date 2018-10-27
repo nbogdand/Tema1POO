@@ -1,6 +1,7 @@
-#include "headerNumarRational.hpp"
+#include "Numar_Rational.hpp"
 #include <iostream>
 #include <cmath>
+#include <string>
 
 void Numar_rational::reducere(){
     // Saving the numerator in a and the denominator in b
@@ -28,21 +29,13 @@ void Numar_rational::reducere(){
     }
 }
 /*
-Numar_rational::Numar_rational(int a=0,int b=1){
-    this->m_numarator=a;
-    this->m_numitor=b;
-
-    while(a!=b){
-        if(a>=b)
-            a-=b;
-        else
-            b-=a;
-    }
-
-    if(a==b){
-        this->m_numarator/=a;
-        this->m_numitor/=a;
-    }
+Numar_rational::Numar_rational(int numarator,int numitor)
+            :m_numarator(numarator)
+            ,m_numitor(numitor)
+{
+    m_numarator=numarator;
+    m_numitor=numitor;
+    (*this).reducere();
 }
 
 Numar_rational::Numar_rational(Numar_rational& r){
@@ -63,54 +56,63 @@ int Numar_rational::getNumitor(){
 }
 
 void Numar_rational::setNumitor(int numitor){
-    this->m_numitor=numitor;
+    if(numitor!=0)
+        this->m_numitor=numitor;
 }
 
 Numar_rational Numar_rational::operator+=(const Numar_rational r){
     m_numarator=m_numarator*r.m_numitor + r.m_numarator*m_numitor;
     m_numitor=m_numitor*r.m_numitor;
+    (*this).reducere();
     return *this;
 }
 
 Numar_rational Numar_rational::operator+=(const int d){
     m_numarator=d*m_numitor + m_numarator;
     m_numitor=m_numitor;
+    (*this).reducere();
     return *this;
 }
 
 Numar_rational Numar_rational::operator-=(const Numar_rational r){
     m_numarator=m_numarator*r.m_numitor - m_numitor*r.m_numarator;
     m_numitor=m_numitor*r.m_numitor;
+    (*this).reducere();
     return *this;
 }
 
 Numar_rational Numar_rational::operator-=(const int d){
     m_numarator=m_numarator-d*m_numitor;
     m_numitor=m_numitor;
+    (*this).reducere();
     return *this;
 }
 
 Numar_rational Numar_rational::operator*=(const Numar_rational r){
     m_numarator=m_numarator*r.m_numarator;
     m_numitor=m_numitor*r.m_numitor;
+    (*this).reducere();
     return *this;
 }
 
 Numar_rational Numar_rational::operator*=(const int d){
     m_numarator*=d;
     m_numitor=m_numitor;
+    (*this).reducere();
     return *this;
 }
 
 Numar_rational Numar_rational::operator/=(const Numar_rational r){
     m_numarator=m_numarator*r.m_numitor;
     m_numitor=m_numitor*r.m_numarator;
+    (*this).reducere();
     return *this;
 }
 
 Numar_rational Numar_rational::operator/=(const int d){
     m_numarator=m_numarator;
     m_numitor=m_numitor*d;
+    (*this).reducere();
     return *this;
 }
 
@@ -118,7 +120,7 @@ Numar_rational Numar_rational::operator + (){
     return *this;
 }
 
-Numar_rational Numar_rational::operator-(){
+Numar_rational Numar_rational::operator - (){
     return (*this)*(-1);
 }
 
@@ -244,6 +246,24 @@ Numar_rational operator ^ (Numar_rational r,int a){
     aux.reducere();
     return aux;
 
+}
+
+std::string Numar_rational::toString(){
+    std::string number;
+
+    if(m_numitor==1)
+        number=std::to_string(m_numarator);
+    else{
+        if(m_numitor<0 && m_numarator<0)
+            number=std::to_string(-m_numarator)+"/"+std::to_string(-m_numitor);
+        else
+            if(m_numitor<0 && m_numarator>0)
+                number=std::to_string(-m_numarator)+"/"+std::to_string(-m_numitor);
+            else{
+                number=number=std::to_string(m_numarator)+"/"+std::to_string(m_numitor);
+            }
+    }
+    return number;
 }
 
 bool operator == (Numar_rational a,Numar_rational b){
@@ -457,6 +477,10 @@ Numar_rational::operator int(){
 
 Numar_rational::operator double(){
     return (double)m_numarator/(double)m_numitor;
+}
+
+Numar_rational::operator std::string(){
+    return (*this).toString();
 }
 
 std::istream& operator>>(std::istream& in,Numar_rational& r){

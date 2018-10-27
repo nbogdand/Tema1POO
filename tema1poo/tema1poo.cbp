@@ -33,6 +33,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="Numar_rational.cpp" />
+		<Unit filename="Numar_rational.hpp" />
 		<Unit filename="headerNumarRational.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
