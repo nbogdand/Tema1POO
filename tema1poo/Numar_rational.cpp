@@ -271,7 +271,7 @@ bool operator == (Numar_rational a,int d){
 bool operator != (Numar_rational a,Numar_rational b){
     a.reducere();
     b.reducere();
-    if(a.getNumarator()!=b.getNumarator() && a.getNumitor()!=b.getNumitor())
+    if(a.getNumarator()!=b.getNumarator() || a.getNumitor()!=b.getNumitor())
         return true;
     return false;
 }
@@ -288,6 +288,45 @@ bool operator != (Numar_rational a,int d){
     if(a.getNumitor()==1 && a.getNumarator()==d)
         return false;
     return true;
+}
+
+bool operator < (Numar_rational a,Numar_rational b){
+    a.reducere();
+    b.reducere();
+    Numar_rational a1,b1;
+
+    //if both have the same numerator
+    if(a.getNumarator()==b.getNumarator())
+        return a.getNumitor()>b.getNumitor();
+    //if both have the same denominator
+    if(a.getNumitor()==b.getNumitor())
+        return a.getNumarator()<b.getNumarator();
+    //if they have different denominators
+    if(a.getNumitor()!=b.getNumitor()){
+        a1.setNumarator(a.getNumarator()*b.getNumitor());
+        a1.setNumitor(a.getNumitor()*b.getNumitor());
+
+        b1.setNumarator(b.getNumarator()*a.getNumitor());
+        b1.setNumitor(b.getNumitor()*a.getNumitor());
+
+        return a1.getNumarator()<b1.getNumarator();
+    }
+}
+
+bool operator < (Numar_rational a,int d){
+    a.reducere();
+    Numar_rational aux;
+    aux.setNumarator(d*a.getNumitor());
+    aux.setNumitor(a.getNumitor());
+    return a<aux;
+}
+
+bool operator < (int d,Numar_rational a){
+    a.reducere();
+    Numar_rational aux;
+    aux.setNumarator(d*a.getNumitor());
+    aux.setNumitor(a.getNumitor());
+    return aux<a;
 }
 
 bool operator <= (Numar_rational a,Numar_rational b){
@@ -311,6 +350,113 @@ bool operator <= (Numar_rational a,Numar_rational b){
 
         return a1.getNumarator()<=b1.getNumarator();
     }
+}
+
+bool operator <= (Numar_rational a,int d){
+    a.reducere();
+    Numar_rational aux;
+    aux.setNumarator(d*a.getNumitor());
+    aux.setNumitor(a.getNumitor());
+    return a<=aux;
+}
+
+bool operator <= (int d,Numar_rational a){
+    a.reducere();
+    Numar_rational aux;
+    aux.setNumarator(d*a.getNumitor());
+    aux.setNumitor(a.getNumitor());
+    return aux<=a;
+}
+
+
+bool operator >= (Numar_rational a,Numar_rational b){
+    a.reducere();
+    b.reducere();
+    Numar_rational a1,b1;
+
+    //if both have the same numerator
+    if(a.getNumarator()==b.getNumarator())
+        return a.getNumitor()<=b.getNumitor();
+    //if both have the same denominator
+    if(a.getNumitor()==b.getNumitor())
+        return a.getNumarator()>=b.getNumarator();
+    //if they have different denominators
+    if(a.getNumitor()!=b.getNumitor()){
+        a1.setNumarator(a.getNumarator()*b.getNumitor());
+        a1.setNumitor(a.getNumitor()*b.getNumitor());
+
+        b1.setNumarator(b.getNumarator()*a.getNumitor());
+        b1.setNumitor(b.getNumitor()*a.getNumitor());
+
+        return a1.getNumarator()>=b1.getNumarator();
+    }
+}
+
+
+bool operator >= (Numar_rational a,int d){
+    a.reducere();
+    Numar_rational aux;
+    aux.setNumarator(d*a.getNumitor());
+    aux.setNumitor(a.getNumitor());
+    return a>=aux;
+}
+
+bool operator >= (int d,Numar_rational a){
+    a.reducere();
+    Numar_rational aux;
+    aux.setNumarator(d*a.getNumitor());
+    aux.setNumitor(a.getNumitor());
+    return aux>=a;
+}
+
+
+bool operator > (Numar_rational a,Numar_rational b){
+    a.reducere();
+    b.reducere();
+    Numar_rational a1,b1;
+
+    //if both have the same numerator
+    if(a.getNumarator()==b.getNumarator())
+        return a.getNumitor()<b.getNumitor();
+    //if both have the same denominator
+    if(a.getNumitor()==b.getNumitor())
+        return a.getNumarator()>b.getNumarator();
+    //if they have different denominators
+    if(a.getNumitor()!=b.getNumitor()){
+        a1.setNumarator(a.getNumarator()*b.getNumitor());
+        a1.setNumitor(a.getNumitor()*b.getNumitor());
+
+        b1.setNumarator(b.getNumarator()*a.getNumitor());
+        b1.setNumitor(b.getNumitor()*a.getNumitor());
+
+        return a1.getNumarator()>b1.getNumarator();
+    }
+}
+
+
+bool operator > (Numar_rational a,int d){
+    a.reducere();
+    Numar_rational aux;
+    aux.setNumarator(d*a.getNumitor());
+    aux.setNumitor(a.getNumitor());
+    return a>aux;
+}
+
+bool operator > (int d,Numar_rational a){
+    a.reducere();
+    Numar_rational aux;
+    aux.setNumarator(d*a.getNumitor());
+    aux.setNumitor(a.getNumitor());
+    return aux>a;
+}
+
+Numar_rational::operator int(){
+    return m_numarator/m_numitor;
+}
+
+
+Numar_rational::operator double(){
+    return (double)m_numarator/(double)m_numitor;
 }
 
 std::istream& operator>>(std::istream& in,Numar_rational& r){

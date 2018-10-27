@@ -60,6 +60,9 @@ public:
     friend bool operator >= (int,Numar_rational);
     friend bool operator >= (Numar_rational,int);
 
+    operator int();
+    operator double();
+
     friend std::ostream& operator << (std::ostream&,Numar_rational&);
     friend std::istream& operator >> (std::istream&,Numar_rational&);
 
