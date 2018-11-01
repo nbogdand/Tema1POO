@@ -1,18 +1,27 @@
 #include <fstream>
+#include <iostream>
 #include "Numar_rational.hpp"
-using namespace std;
 
-ifstream fin ("file.txt");
-ofstream fout("file2.txt");
+std::ifstream fin ("file.txt");
+std::ofstream fout("file2.txt");
 
 int main()
 {
-    Numar_rational r1(2,3),r2(14,3);
-    double d;
+    Numar_rational r1(0,1),r2(0,1);
     int a=2;
+    double d;
 
+    fin>>r1>>r2;
    // r1*=a;
+
+
     r1+=r2;
+    d=(double)r1;
+  //  r2/=0;
+  //  r2.setNumitor(0);
+    fout<<r1;
+    std::cout<<d;
+
 /*
   //  cout<<r2;
 
@@ -33,8 +42,8 @@ int main()
     cout<<"b=="<<b<<endl;
 */
  //   std::string s = (std::string) r1;
-    std::string s1 = (std::string) r1;
-    fout<<s1;
+//    std::string s1 = (std::string) r1;
+//    fout<<s1;
 
     return 0;
 }

@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="Numar_rational.cpp" />
 		<Unit filename="Numar_rational.hpp" />
+		<Unit filename="file.txt" />
+		<Unit filename="file2.txt" />
 		<Unit filename="headerNumarRational.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
