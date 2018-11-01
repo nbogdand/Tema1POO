@@ -547,7 +547,8 @@ Numar_rational::operator std::string(){
 }
 
 std::istream& operator>>(std::istream& in,Numar_rational& r){
-    in>>r.m_numarator>>r.m_numitor;
+    char space;
+    in>>r.m_numarator>>space>>r.m_numitor;
     return in;
 }
 
