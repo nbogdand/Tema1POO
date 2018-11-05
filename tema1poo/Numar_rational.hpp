@@ -6,7 +6,7 @@ public:
 
     Numar_rational(int,int);
     Numar_rational(Numar_rational& r);
-    void setNumaratorNumitor(int,int);
+    void setFractie(int,int);
     void setNumarator(int);
     int getNumarator() const;
     void setNumitor(int);

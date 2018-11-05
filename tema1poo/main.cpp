@@ -7,20 +7,62 @@ std::ofstream fout("file2.txt");
 
 int main()
 {
-    Numar_rational r1(0,1),r2(0,1);
+    Numar_rational r1(7,3),r2(-2,3);
     int a=2;
     double d;
 
-    fin>>r1>>r2;
+   // fin>>r1>>r2;
    // r1*=a;
+    Numar_rational aux(0,1);
+    std::cout<<r1<<"  "<<r2<<std::endl;
+    aux=a*r1;
+    d=(double)aux;
+
+    std::cout<<aux<<std::endl;
+  //  fout<<r1;
+    std::cout<<d<<std::endl;
 
 
-    r1+=r2;
-    d=(double)r1;
-  //  r2/=0;
-  //  r2.setNumitor(0);
-    fout<<r1;
-    std::cout<<d;
+    if(r1==r2)
+        std::cout<<r1<<"=="<<r2<<std::endl;
+    if(r1!=r2)
+        std::cout<<r1<<"!="<<r2<<std::endl;
+    if(r1<=r2)
+        std::cout<<r1<<"<="<<r2<<std::endl;
+    if(r1<r2)
+        std::cout<<r1<<"<"<<r2<<std::endl;
+    if(r1>=r2)
+        std::cout<<r1<<">="<<r2<<std::endl;
+    if(r1>r2)
+        std::cout<<r1<<">"<<r2<<std::endl;
+    if(r1==a)
+        std::cout<<r1<<"=="<<a<<std::endl;
+    if(r1!=a)
+        std::cout<<r1<<"!="<<a<<std::endl;
+    if(r1<=a)
+        std::cout<<r1<<"<="<<a<<std::endl;
+    if(r1<a)
+        std::cout<<r1<<"<"<<a<<std::endl;
+    if(r1>=a)
+        std::cout<<r1<<">="<<a<<std::endl;
+    if(r1>a)
+        std::cout<<r1<<">"<<a<<std::endl;
+
+    if(a==r1)
+        std::cout<<a<<"=="<<r1<<std::endl;
+    if(a!=r1)
+        std::cout<<a<<"!="<<r1<<std::endl;
+    if(a<=r1)
+        std::cout<<a<<"<="<<r1<<std::endl;
+    if(a<r1)
+        std::cout<<a<<"<"<<r1<<std::endl;
+    if(a>=r1)
+        std::cout<<a<<">="<<r1<<std::endl;
+    if(a>r1)
+        std::cout<<a<<">"<<r1<<std::endl;
+
+
+
 
 /*
   //  cout<<r2;

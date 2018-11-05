@@ -5,9 +5,9 @@
 
 /*
     Error codes:
-    #19 : Numar_rational(Numar_rational&) : setting the denominator's value to zero
-    #20 : Numar_rational(int,int) : setting the denominator's value to zero
-    #21 : setNumitor(): setting the denominator's value to zero
+    #18 : Numar_rational(Numar_rational&) : setting the denominator's value to zero
+    #19 : Numar_rational(int,int) : setting the denominator's value to zero
+    #20 : setNumitor(): setting the denominator's value to zero
     #22 : operator /=(const Numar_rational&) : division by zero
     #23 : operator /=(const int&) : division by zero
     #24 : operator /(const Numar_rational&,const Numar_rational&) : division by zero
@@ -50,7 +50,7 @@ Numar_rational::Numar_rational(int numarator=0,int numitor=1)
     try{
 
         if(numitor==0)
-            throw 20;
+            throw 19;
         (*this).simplifica();
 
     }catch(int errorCode){
@@ -62,7 +62,7 @@ Numar_rational::Numar_rational(Numar_rational& r){
     try{
 
         if(r.getNumitor()==0)
-            throw 19;
+            throw 18;
 
         this->m_numarator=r.getNumarator();
         this->m_numitor=r.getNumitor();
@@ -89,8 +89,22 @@ void Numar_rational::setNumitor(int numitor){
     try{
 
         if(numitor==0)
+            throw 20;
+        this->m_numitor=numitor;
+        (*this).simplifica();
+
+    }catch(int errorCode){
+        std::cout<<"Denominator can not be 0 (zero), ERROR number:"<<errorCode<<std::endl;
+    }
+}
+
+void Numar_rational::setFractie(int numarator,int numitor){
+    try{
+
+        if(numitor==0)
             throw 21;
         this->m_numitor=numitor;
+        this->m_numarator=numarator;
         (*this).simplifica();
 
     }catch(int errorCode){
@@ -547,8 +561,7 @@ Numar_rational::operator std::string(){
 }
 
 std::istream& operator>>(std::istream& in,Numar_rational& r){
-    char space;
-    in>>r.m_numarator>>space>>r.m_numitor;
+    in>>r.m_numarator>>r.m_numitor;
     return in;
 }
 
