@@ -3,18 +3,6 @@
 #include <cmath>
 #include <string>
 
-/*
-    Error codes:
-    #18 : Numar_rational(Numar_rational&) : setting the denominator's value to zero
-    #19 : Numar_rational(int,int) : setting the denominator's value to zero
-    #20 : setNumitor(): setting the denominator's value to zero
-    #22 : operator /=(const Numar_rational&) : division by zero
-    #23 : operator /=(const int&) : division by zero
-    #24 : operator /(const Numar_rational&,const Numar_rational&) : division by zero
-    #25 : operator /(const Numar_rational&,const int&) : division by zero
-    #26 : operator /(const int&,const Numar_rational&) : division by zero
-*/
-
 void Numar_rational::simplifica(){
 
     if(m_numarator!=0){
@@ -43,33 +31,23 @@ void Numar_rational::simplifica(){
     }
 }
 
-Numar_rational::Numar_rational(int numarator=0,int numitor=1)
+Numar_rational::Numar_rational(int numarator,int numitor)
             :m_numarator(numarator)
             ,m_numitor(numitor)
 {
-    try{
-
         if(numitor==0)
-            throw 19;
+            throw std::runtime_error(" Denominator can't be 0 (zero)! ");
         (*this).simplifica();
-
-    }catch(int errorCode){
-        std::cout<<"Denominator can not be 0 (zero), ERROR number:"<<errorCode<<std::endl;
-    }
 }
 
 Numar_rational::Numar_rational(Numar_rational& r){
-    try{
 
-        if(r.getNumitor()==0)
-            throw 18;
+    if(r.getNumitor()==0)
+        throw std::runtime_error(" Denominator can't be 0 (zero)! ");
 
-        this->m_numarator=r.getNumarator();
-        this->m_numitor=r.getNumitor();
+    this->m_numarator=r.getNumarator();
+    this->m_numitor=r.getNumitor();
 
-    }catch(int errorCode){
-        std::cout<<"Denominator can not be 0 (zero), ERROR number:"<<errorCode<<std::endl;
-    }
 }
 
 int Numar_rational::getNumarator() const {
@@ -86,30 +64,20 @@ int Numar_rational::getNumitor() const{
 }
 
 void Numar_rational::setNumitor(int numitor){
-    try{
 
-        if(numitor==0)
-            throw 20;
-        this->m_numitor=numitor;
-        (*this).simplifica();
+    if(numitor==0)
+        throw std::runtime_error(" Denominator can't be 0 (zero)! ");
+    this->m_numitor=numitor;
+    (*this).simplifica();
 
-    }catch(int errorCode){
-        std::cout<<"Denominator can not be 0 (zero), ERROR number:"<<errorCode<<std::endl;
-    }
 }
 
 void Numar_rational::setFractie(int numarator,int numitor){
-    try{
-
-        if(numitor==0)
-            throw 21;
-        this->m_numitor=numitor;
-        this->m_numarator=numarator;
-        (*this).simplifica();
-
-    }catch(int errorCode){
-        std::cout<<"Denominator can not be 0 (zero), ERROR number:"<<errorCode<<std::endl;
-    }
+    if(numitor==0)
+        throw std::runtime_error(" Denominator can't be 0 (zero)! ");
+    this->m_numitor=numitor;
+    this->m_numarator=numarator;
+    (*this).simplifica();
 }
 
 Numar_rational& Numar_rational::operator+=(const Numar_rational& r){
@@ -155,43 +123,52 @@ Numar_rational& Numar_rational::operator*=(const int& d){
 }
 
 Numar_rational& Numar_rational::operator/=(const Numar_rational& r){
-    try{
+    if(r.m_numarator==0 || r.m_numitor==0)
+        throw std::runtime_error(" Division by 0 (zero) ");
 
-        if(r.m_numarator==0 || r.m_numitor==0)
-            throw 22;
-
-        m_numarator=m_numarator*r.m_numitor;
-        m_numitor=m_numitor*r.m_numarator;
-        (*this).simplifica();
-        return *this;
-
-    }catch(int errorCode){
-        std::cout<<"Can not divide by 0 (zero), ERROR number:"<<errorCode<<std::endl;
-    }
-
+    m_numarator=m_numarator*r.m_numitor;
+    m_numitor=m_numitor*r.m_numarator;
+    (*this).simplifica();
+    return *this;
 }
 
 Numar_rational& Numar_rational::operator/=(const int& d){
-    try{
-        if(d==0)
-            throw 23;
-        m_numarator=m_numarator;
-        m_numitor=m_numitor*d;
-        (*this).simplifica();
-        return *this;
+    if(d==0)
+        throw std::runtime_error(" Division 0 (zero)! ");
+    m_numarator=m_numarator;
+    m_numitor=m_numitor*d;
+    (*this).simplifica();
+    return *this;
+}
 
-    }catch(int errorCode){
-        std::cout<<"Can not divide by 0 (zero),Error number:"<<errorCode<<std::endl;
+Numar_rational Numar_rational::operator + (){
+    return *this;
+}
+
+Numar_rational Numar_rational::operator - (){
+    Numar_rational aux;
+
+    if(m_numarator<0 && m_numitor<0){
+        aux.setNumarator(m_numarator);
+        aux.setNumitor(std::abs(m_numitor));
     }
-}
 
-Numar_rational& Numar_rational::operator + (){
-    return *this;
-}
+    if(m_numarator<0 && m_numitor>0){
+        aux.setNumarator(std::abs(m_numarator));
+        aux.setNumitor(m_numitor);
+    }
 
-Numar_rational& Numar_rational::operator - (){
-    m_numarator*=(-1);
-    return *this;
+    if(m_numarator>0 && m_numitor<0){
+        aux.setNumarator(m_numarator);
+        aux.setNumitor(std::abs(m_numitor));
+    }
+
+    if(m_numarator>0 && m_numitor>0){
+        aux.setNumarator(-m_numarator);
+        aux.setNumitor(m_numitor);
+    }
+
+    return aux;
 }
 
 Numar_rational operator + (Numar_rational& a,Numar_rational& b){
@@ -268,51 +245,33 @@ Numar_rational operator * (Numar_rational& r,int& a){
 Numar_rational operator / (Numar_rational& a,Numar_rational& b){
 
     Numar_rational aux(1,1);
-    try{
-
-        if(a.m_numitor==0 || b.m_numarator==0 || b.m_numitor==0)
-            throw 24;
-
-        aux.m_numarator=a.m_numarator*b.m_numitor;
-        aux.m_numitor=a.m_numitor*b.m_numarator;
-        aux.simplifica();
-        return aux;
-
-    }catch(int errorCode){
-        std::cout<<"Can not divide by 0 (zero), ERROR number:"<<errorCode<<std::endl;
-    }
+    if(a.m_numitor==0 || b.m_numarator==0 || b.m_numitor==0)
+        throw std::runtime_error(" Division by 0 (zero)! ");
+    aux.m_numarator=a.m_numarator*b.m_numitor;
+    aux.m_numitor=a.m_numitor*b.m_numarator;
+    aux.simplifica();
+    return aux;
 }
 
 Numar_rational operator / (int& d,Numar_rational& r){
 
-    try{
+    if(r.m_numitor==0)
+        throw std::runtime_error(" Division by 0 (zero)! ");
 
-        if(r.m_numitor==0)
-            throw 25;
-
-        Numar_rational aux(1,1);
-        aux.m_numarator=d*r.m_numitor;
-        aux.m_numitor=r.m_numarator;
-        return aux;
-    }catch(int errorCode){
-            std::cout<<"Can not divide by 0 (zero),ERROR number:"<<errorCode<<std::endl;
-    }
+    Numar_rational aux(1,1);
+    aux.m_numarator=d*r.m_numitor;
+    aux.m_numitor=r.m_numarator;
+    return aux;
 }
 
 Numar_rational operator / (Numar_rational& r,int& d){
-   try{
-        if(d==0)
-            throw 26;
+    if(d==0)
+        throw std::runtime_error(" Division by 0 (zero)! ");
 
-        Numar_rational aux(1,1);
-        aux.m_numarator=r.m_numarator;
-        aux.m_numitor=r.m_numitor*d;
-        return aux;
-
-   }catch(int errorCode){
-        std::cout<<"Can not divide by 0 (zero), ERROR number:"<<errorCode<<std::endl;
-   }
-
+    Numar_rational aux(1,1);
+    aux.m_numarator=r.m_numarator;
+    aux.m_numitor=r.m_numitor*d;
+    return aux;
 }
 
 Numar_rational operator ^ (Numar_rational& r,int& a){
@@ -561,7 +520,27 @@ Numar_rational::operator std::string(){
 }
 
 std::istream& operator>>(std::istream& in,Numar_rational& r){
-    in>>r.m_numarator>>r.m_numitor;
+
+    std::string data;
+    in>>data;
+
+    int slash_poz=data.find('/');
+
+    bool numitor_exista=(slash_poz!=std::string::npos);
+
+    if(numitor_exista==1){
+        r.m_numarator=std::stoi(data.substr(0,slash_poz));
+        r.m_numitor=std::stoi(data.substr(slash_poz+1,data.length()));
+
+        if(r.m_numitor==0)
+            throw std::runtime_error(" Denominator can't be 0 (zero)! ");
+
+    }else{
+        r.m_numarator=std::stoi(data);
+        r.m_numitor=1;
+    }
+
+    r.simplifica();
     return in;
 }
 

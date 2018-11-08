@@ -4,7 +4,7 @@
 class Numar_rational{
 public:
 
-    Numar_rational(int,int);
+    Numar_rational(int numarator=0,int numitor=1);
     Numar_rational(Numar_rational& r);
     void setFractie(int,int);
     void setNumarator(int);
@@ -21,8 +21,8 @@ public:
     Numar_rational& operator/=(const Numar_rational&);
     Numar_rational& operator/=(const int&);
 
-    Numar_rational& operator-();
-    Numar_rational& operator+();
+    Numar_rational operator-();
+    Numar_rational operator+();
 
     friend Numar_rational operator + (Numar_rational&,Numar_rational&);
     friend Numar_rational operator + (int&,Numar_rational&);

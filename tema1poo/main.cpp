@@ -5,11 +5,28 @@
 std::ifstream fin ("file.txt");
 std::ofstream fout("file2.txt");
 
+/*
+    Error codes:
+    #18 : Numar_rational(Numar_rational&) : setting the denominator's value to zero
+    #19 : Numar_rational(int,int) : setting the denominator's value to zero
+    #20 : setNumitor(): setting the denominator's value to zero
+    #22 : operator /=(const Numar_rational&) : division by zero
+    #23 : operator /=(const int&) : division by zero
+    #24 : operator /(const Numar_rational&,const Numar_rational&) : division by zero
+    #25 : operator /(const Numar_rational&,const int&) : division by zero
+    #26 : operator /(const int&,const Numar_rational&) : division by zero
+*/
+
 int main()
 {
     Numar_rational r1(7,3),r2(-2,3);
+    Numar_rational r3,r4;
     int a=2;
     double d;
+
+    fin>>r3>>r4;
+    std::cout<<" Citite din fisier:::"<<std::endl;
+    std::cout<<r3<<" si "<<r4<<std::endl<<std::endl;
 
    // fin>>r1>>r2;
    // r1*=a;
@@ -61,9 +78,11 @@ int main()
     if(a>r1)
         std::cout<<a<<">"<<r1<<std::endl;
 
-
-
-
+    try{
+        r1.setNumitor(0);
+    }catch(const std::runtime_error ex){
+        std::cout<<ex.what();
+    }
 /*
   //  cout<<r2;
 
